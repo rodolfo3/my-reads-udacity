@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Link, BrowserRouter } from 'react-router-dom';
 
 import './App.css';
+import Header from './Header';
 
 
 class App extends Component {
   render() {
     return (
       <div>
-        ;)
-        <Route exact path="/" render={
-          () => <div>'root!'</div>
-        } />
-        <Route exact path="/search" render={
-          () => <div>'search!'</div>
-        } />
+        <Header />
+        --
+        <br/>
+        <Link to="/search">search</Link>
       </div>
     );
   }

@@ -1,0 +1,27 @@
+.Title {
+  line-height: 50px;
+  text-align: center;
+  background-color: green;
+  color: white;
+}
+
+.Search {
+  display: flex;
+}
+
+.Search a {
+  line-height: 50px;
+  padding: 0 20px;
+  flex: 0 0 auto;
+  text-decoration: none;
+  color: gray;
+  font-size: 20px;
+}
+
+.Search input {
+  width: 100%;
+  border: 1px solid lightgray;
+  line-height: 50px;
+  flex: 1 1 auto;
+}
+
