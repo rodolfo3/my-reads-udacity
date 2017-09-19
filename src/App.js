@@ -1,26 +1,11 @@
 import React, { Component } from 'react';
-import { Link, BrowserRouter } from 'react-router-dom';
-
-import { getAll } from './BooksAPI';
+import { Link, BrowserRouter, Route } from 'react-router-dom';
 
 import './App.css';
 
 import Header from './Header';
-import Shelf from './Shelf';
+import Home from './Home';
 
-class BooksShelf extends Component {
-  state = {
-    books: []
-  }
-
-  componentDidMount() {
-    this.props.fetchBooks().then(books => this.setState({ books }));
-  }
-
-  render() {
-    return <Shelf title="All the books" books={this.state.books} />;
-  }
-}
 
 
 class App extends Component {
@@ -32,8 +17,8 @@ class App extends Component {
     return (
       <div>
         <Header />
+        <Route exact path="/" component={Home} />
         <Link to="/search">search</Link>
-        <BooksShelf fetchBooks={getAll} />
       </div>
     );
   }
