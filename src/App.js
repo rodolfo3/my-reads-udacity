@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import './App.css';
 
@@ -19,7 +19,6 @@ class App extends Component {
         <Header />
         <Route exact path="/" component={Home} />
         <Route exact path="/search" component={SearchResult} />
-        <Link to="/search">search</Link>
       </div>
     );
   }

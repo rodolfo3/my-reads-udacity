@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import { getAll } from './BooksAPI';
 
@@ -42,6 +43,7 @@ class Home extends Component {
             )
           )
         }
+        <Link to="/search">search</Link>
       </div>
     );
   }
