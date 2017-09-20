@@ -37,7 +37,7 @@ class Home extends Component {
               <Shelf
                 key={SHELF_NAME[shelf]}
                 title={SHELF_NAME[shelf]}
-                books={this.state.books.filter(b => b.shelf == shelf)}
+                books={this.state.books.filter(b => b.shelf === shelf)}
               />
             )
           )
