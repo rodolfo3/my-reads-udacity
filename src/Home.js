@@ -3,21 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { getAll } from './BooksAPI';
 
+import { SHELFS, SHELF_NAME } from './config';
 import Shelf from './Shelf';
-
-
-const SHELFS = [
-  'currentlyReading',
-  'wantToRead',
-  'read',
-];
-
-
-const SHELF_NAME = {
-  currentlyReading: 'Currently Reading',
-  wantToRead: 'Want to Read',
-  read: 'Read',
-};
 
 
 class Home extends Component {
