@@ -5,7 +5,7 @@ import './App.css';
 
 import Header from './Header';
 import Home from './Home';
-
+import SearchResult from './SearchResult';
 
 
 class App extends Component {
@@ -18,6 +18,7 @@ class App extends Component {
       <div>
         <Header />
         <Route exact path="/" component={Home} />
+        <Route exact path="/search" component={SearchResult} />
         <Link to="/search">search</Link>
       </div>
     );
