@@ -7,7 +7,7 @@ const BookAction = ({ currentShelf, shelf, add }) => {
   if (currentShelf === shelf) {
     return <span>{ SHELF_NAME[currentShelf] }</span>;
   } else {
-    return <a href="#" onClick={add}>{ SHELF_NAME[currentShelf] }</a>;
+    return <button onClick={add}>{ SHELF_NAME[currentShelf] }</button>;
   }
 };
 
