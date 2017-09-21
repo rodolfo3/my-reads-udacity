@@ -1,0 +1,8 @@
+.shelf-list {
+  list-style: none;
+  padding: 0;
+}
+
+.shelf-item {
+  display: inline-block;
+}
