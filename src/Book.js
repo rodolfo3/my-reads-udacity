@@ -65,6 +65,7 @@ class Book extends Component {
   state = {
     status: 'ok',
     menuVisible: false,
+    shelf: null,
   }
   constructor() {
     super();
@@ -76,8 +77,13 @@ class Book extends Component {
   addToShelf({id, shelf}) {
     this.setState({ status: 'adding' });
     this.context.addToShelf({id, shelf}).then(
-      () => this.setState({ menuVisible: false, status: 'ok' })
+      () => this.setState({ menuVisible: false, status: 'ok', shelf })
     )
+  }
+
+  getShelf() {
+    const { id } = this.props;
+    return this.state.shelf || this.context.getShelf({ id });
   }
 
   open() {
@@ -86,7 +92,7 @@ class Book extends Component {
 
   render() {
     const { title, authors, imageLinks } = this.props;
-    const { id, shelf } = this.props;
+    const { id } = this.props;
 
     return (
       <div className="book-container">
@@ -101,7 +107,7 @@ class Book extends Component {
         </p>
         <BookMenu
           id={id}
-          shelf={shelf}
+          shelf={this.getShelf()}
           addToShelf={this.addToShelf}
           visible={this.state.menuVisible}
           open={this.open}
@@ -113,6 +119,7 @@ class Book extends Component {
 };
 Book.contextTypes = {
   addToShelf: PropTypes.func,
+  getShelf: PropTypes.func,
 }
 
 export default Book;

@@ -19,6 +19,7 @@ class App extends Component {
   constructor() {
     super();
     this.addToShelf = this.addToShelf.bind(this);
+    this.getShelf = this.getShelf.bind(this);
   }
 
   getFromApi() {
@@ -50,9 +51,20 @@ class App extends Component {
     ;
   }
 
+  getShelf({ id }) {
+    return Object.keys(this.state.booksByShelf)
+      .map(
+        (shelf) => {
+          return this.state.booksByShelf[shelf].find(book => book.id === id) && shelf
+        }
+      )
+      .reduce((acc, shelf) => acc || shelf);
+  }
+
   getChildContext() {
     return {
       addToShelf: this.addToShelf,
+      getShelf: this.getShelf,
     }
   }
 
@@ -70,6 +82,7 @@ class App extends Component {
 
 App.childContextTypes = {
   addToShelf: PropTypes.func,
+  getShelf: PropTypes.func,
 }
 
 const Routes = () =>
