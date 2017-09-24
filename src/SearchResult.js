@@ -8,6 +8,7 @@ class SearchResult extends Component {
   state = {
     books: [],
     searchTerm: '',
+    status: 'empty',
   }
 
   getSearchTerm(props) {
@@ -21,6 +22,7 @@ class SearchResult extends Component {
 
   searchFor(searchTerm) {
     if (searchTerm) {
+      this.setState({ status: 'searching' });
       search(searchTerm, 10)
       .catch((err) => {
         if (err.message === 'empty query') {
@@ -29,8 +31,10 @@ class SearchResult extends Component {
         console.error(err);
       })
       .then(
-        books => this.setState({ books, searchTerm })
+        books => this.setState({ books, searchTerm, status: 'ok' })
       )
+    } else {
+      this.setState({ status: 'empty' });
     }
   }
 
@@ -46,15 +50,23 @@ class SearchResult extends Component {
   }
 
   render() {
-    if (this.state.searchTerm !== this.getSearchTerm(this.props)) {
-      return <span>Searching...{this.state.searchTerm} != {this.getSearchTerm(this.props)}</span>;
+    if (this.state.status === 'empty') {
+      return <div>Type someting to search</div>;
     }
 
-    return (
-      <Shelf
-        books={this.state.books}
-      />
-    );
+    if (this.state.status === 'searching') {
+      return <div>Searching...</div>;
+    }
+
+    if (this.state.status === 'ok') {
+      return (
+        <Shelf
+          books={this.state.books}
+        />
+      );
+    }
+
+    return <div>Oooops: { this.state.status }!</div>
   }
 }
 
