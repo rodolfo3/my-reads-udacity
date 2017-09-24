@@ -89,7 +89,7 @@ class Book extends Component {
           { title }
         </h3>
         <p className="book-author">
-          { authors.join(', ')}
+          { authors && authors.join(', ')}
         </p>
         <BookMenu id={id} shelf={shelf} addToShelf={this.addToShelf} />
       </div>
