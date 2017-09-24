@@ -1,0 +1,51 @@
+.book-container {
+  position: relative;
+
+  display: inline-flex;
+  flex-direction: column;
+
+  width: 150px;
+  margin: 20px;
+}
+
+.book-container h3, .book-container .book-author {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.book-container h3 {
+  margin: 0;
+}
+
+.book-container img {
+  width: 100%;
+}
+
+.book-menu {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  list-style: none;
+
+  border: 1px solid gray;
+  background-color: white;
+  padding: 10px 2px;
+  font-size: 12px;
+  box-shadow: 2px 2px 4px gray;
+}
+
+.book-current-shelf {
+  color: lightgray;
+  font-style: italic;
+}
+
+.book-action-btn {
+  padding: 10px 0;
+  background: white;
+  border: none;
+  width: 100%;
+  text-align: left;
+  text-decoration: underline;
+}
