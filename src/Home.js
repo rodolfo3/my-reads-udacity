@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { SHELFS, SHELF_NAME } from './config';
 import Shelf from './Shelf';
 
+import './Home.css';
+
 
 const Home = ({ booksByShelf }) =>
   <div>
@@ -18,7 +20,7 @@ const Home = ({ booksByShelf }) =>
         )
       )
     }
-    <Link to="/search">search</Link>
+    <Link to="/search" className="search">search</Link>
   </div>
 ;
 
