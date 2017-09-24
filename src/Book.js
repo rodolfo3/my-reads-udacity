@@ -34,46 +34,54 @@ const BookOptions = ({ id, shelf, addToShelf }) =>
 ;
 
 
-class BookMenu extends Component {
-  state = {
-    visible: false,
-  }
+const BookMenu = (props) => {
+  const { visible, updating, open } = props;
 
-  constructor(p) {
-    super();
-    this.open = this.open.bind(this);
-  }
-
-  open() {
-    this.setState({visible: true});
-  }
-
-  render() {
-    if (this.state.visible) {
-      return <BookOptions {...this.props} />;
-    }
-
+  if (updating) {
     return (
-      <button
-        onClick={this.open}
-        className="book-menu-button"
-      >
-        menu
-      </button>
+      <div className="book-menu">
+        Updating...
+      </div>
     );
   }
-}
+
+  if (visible) {
+    return <BookOptions {...props} />;
+  }
+
+  return (
+    <button
+      onClick={open}
+      className="book-menu-button"
+    >
+      menu
+    </button>
+  );
+};
 
 
 
 class Book extends Component {
+  state = {
+    status: 'ok',
+    menuVisible: false,
+  }
   constructor() {
     super();
     this.addToShelf = this.addToShelf.bind(this);
+    this.open = this.open.bind(this);
   }
 
+
   addToShelf({id, shelf}) {
-    this.context.addToShelf({id, shelf});
+    this.setState({ status: 'adding' });
+    this.context.addToShelf({id, shelf}).then(
+      () => this.setState({ menuVisible: false, status: 'ok' })
+    )
+  }
+
+  open() {
+    this.setState({ menuVisible: true });
   }
 
   render() {
@@ -91,7 +99,14 @@ class Book extends Component {
         <p className="book-author">
           { authors && authors.join(', ')}
         </p>
-        <BookMenu id={id} shelf={shelf} addToShelf={this.addToShelf} />
+        <BookMenu
+          id={id}
+          shelf={shelf}
+          addToShelf={this.addToShelf}
+          visible={this.state.menuVisible}
+          open={this.open}
+          updating={this.state.status === 'adding'}
+        />
       </div>
     );
   }
