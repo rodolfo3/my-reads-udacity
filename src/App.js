@@ -19,6 +19,7 @@ class App extends Component {
   constructor() {
     super();
     this.addToShelf = this.addToShelf.bind(this);
+    this.removeFromShelf = this.removeFromShelf.bind(this);
     this.getShelf = this.getShelf.bind(this);
   }
 
@@ -51,6 +52,13 @@ class App extends Component {
     ;
   }
 
+  removeFromShelf({ id, shelf }) {
+    return update({ id }, 'none')
+      .then(() => this.getFromApi())
+      .then(booksByShelf => booksByShelf[shelf].find(book => book.id === id))
+    ;
+  }
+
   getShelf({ id }) {
     return Object.keys(this.state.booksByShelf)
       .map(
@@ -64,6 +72,7 @@ class App extends Component {
   getChildContext() {
     return {
       addToShelf: this.addToShelf,
+      removeFromShelf: this.removeFromShelf,
       getShelf: this.getShelf,
     }
   }
@@ -82,6 +91,7 @@ class App extends Component {
 
 App.childContextTypes = {
   addToShelf: PropTypes.func,
+  removeFromShelf: PropTypes.func,
   getShelf: PropTypes.func,
 }
 

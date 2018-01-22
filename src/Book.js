@@ -17,7 +17,7 @@ const BookAction = ({ currentShelf, shelf, add }) => {
 };
 
 
-const BookOptions = ({ id, shelf, addToShelf }) =>
+const BookOptions = ({ id, shelf, addToShelf, removeFromShelf }) =>
   <ul className="book-menu">
     {
       SHELFS.map(s =>
@@ -30,6 +30,13 @@ const BookOptions = ({ id, shelf, addToShelf }) =>
         </li>
       )
     }
+    <li>
+      <BookAction
+        currentShelf={null}
+        shelf={shelf}
+        add={() => removeFromShelf({ id, shelf })}
+      />
+    </li>
   </ul>
 ;
 
@@ -70,9 +77,13 @@ class Book extends Component {
   constructor() {
     super();
     this.addToShelf = this.addToShelf.bind(this);
+    this.removeFromShelf = this.removeFromShelf.bind(this);
     this.open = this.open.bind(this);
   }
 
+  removeFromShelf({ id, shelf }) {
+    this.context.removeFromShelf({ id, shelf })
+  }
 
   addToShelf({id, shelf}) {
     this.setState({ status: 'adding' });
@@ -109,6 +120,7 @@ class Book extends Component {
           id={id}
           shelf={this.getShelf()}
           addToShelf={this.addToShelf}
+          removeFromShelf={this.removeFromShelf}
           visible={this.state.menuVisible}
           open={this.open}
           updating={this.state.status === 'adding'}
@@ -119,6 +131,7 @@ class Book extends Component {
 };
 Book.contextTypes = {
   addToShelf: PropTypes.func,
+  removeFromShelf: PropTypes.func,
   getShelf: PropTypes.func,
 }
 
