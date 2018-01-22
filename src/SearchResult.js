@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import debounce from 'debounce';
 import { search } from './BooksAPI';
 
 import Shelf from './Shelf';
@@ -20,23 +21,26 @@ class SearchResult extends Component {
     return decodeURIComponent(query[1]);
   }
 
-  searchFor(searchTerm) {
-    if (searchTerm) {
-      this.setState({ status: 'searching' });
-      search(searchTerm, 10)
-      .catch((err) => {
-        if (err.message === 'empty query') {
-          return [];
-        }
-        console.error(err);
-      })
-      .then(
-        books => this.setState({ books, searchTerm, status: 'ok' })
-      )
-    } else {
-      this.setState({ status: 'empty' });
-    }
-  }
+  searchFor = debounce(
+    (searchTerm) => {
+      if (searchTerm) {
+        this.setState({ status: 'searching' });
+        search(searchTerm, 10)
+        .catch((err) => {
+          if (err.message === 'empty query') {
+            return [];
+          }
+          console.error(err);
+        })
+        .then(
+          books => this.setState({ books, searchTerm, status: 'ok' })
+        )
+      } else {
+        this.setState({ status: 'empty' });
+      }
+    },
+    300
+  )
 
   componentDidMount() {
     this.searchFor(this.getSearchTerm(this.props));
